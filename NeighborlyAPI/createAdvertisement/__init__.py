@@ -18,7 +18,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             collection = database["advertisements"]
 
             # replace the insert_one variable with what you think should be in the bracket
-            collection.insert_one(request)
+            rec_id1 = collection.insert_one(eval(request))
 
             # we are returnign the request body so you can take a look at the results
             return func.HttpResponse(req.get_body())

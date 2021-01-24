@@ -16,7 +16,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             
             query = {'_id': ObjectId(id)}
             result = collection.delete_one(query)
-            return func.HttpResponse("")
+            return func.HttpResponse(status_code=200)
 
         except:
             print("could not connect to mongodb")

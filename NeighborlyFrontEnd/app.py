@@ -16,7 +16,6 @@ Bootstrap(app)
 
 
 def get_abs_url(url):
-    """ Returns absolute url by joining post url with base url """
     return urljoin(request.url_root, url)
 
 
@@ -31,14 +30,14 @@ def feeds():
     for key, value in posts.items():
         print("key,value: " + key + ", " + value)
 
-    #     feed.add(post.title,
-    #              content_type='html',
-    #              author= post.author_name,
-    #              url=get_abs_url(post.url),
-    #              updated=post.mod_date,
-    #              published=post.created_date)
+        feed.add(post.title,
+                 content_type='html',
+                 author= post.author_name,
+                 url=get_abs_url(post.url),
+                 updated=post.mod_date,
+                 published=post.created_date)
 
-    # return feed.get_response()
+    return feed.get_response()
 
 
 @app.route('/rss')
@@ -65,10 +64,10 @@ def rss():
 def home():
     response = requests.get(settings.API_URL + '/getAdvertisements')
     response2 = requests.get(settings.API_URL + '/getPosts')
-
     ads = response.json()
     posts = response2.json()
     return render_template("index.html", ads=ads, posts=posts)
+    return render_template("index.html")
 
 
 @app.route('/ad/add', methods=['GET'])
@@ -92,6 +91,7 @@ def delete_ad_view(id):
 @app.route('/ad/view/<id>', methods=['GET'])
 def view_ad_view(id):
     response = requests.get(settings.API_URL + '/getAdvertisement?id=' + id)
+    
     ad = response.json()
     return render_template("view_ad.html", ad=ad)
 

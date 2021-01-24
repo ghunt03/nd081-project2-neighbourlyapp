@@ -3,26 +3,29 @@ import logging
 import azure.functions as func
 import pymongo
 import json
-from  bson.json_util import dumps
+from bson.json_util import dumps
+from bson.objectid import ObjectId
 import os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     try:
-        ad_id = req.params.get("id")
-        if not ad_id:
+        id = req.params.get("id")
+        if not id:
             try:
                 req_body = req.get_json()
             except ValueError:
                 pass
             else:
-                ad_id = req_body.get("id")
+                id = req_body.get("id")
 
-        if ad_id:
+        if id:
             url = os.environ['MyDBConnection']
             client = pymongo.MongoClient(url)
             database = client['ghneighborlydb']
             collection = database['advertisements']
-            result = collection.find({"_id": ad_id})
+
+            query = {'_id': ObjectId(id)}
+            result = collection.find_one(query)
             result = dumps(result)
             return func.HttpResponse(result, mimetype="application/json", charset="utf-8")
         else:
