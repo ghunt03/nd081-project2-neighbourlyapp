@@ -1,0 +1,9 @@
+venv
+local.settings.json
+.python_packages
+__pycache__
+.venv
+.vscode
+.DS_Store
+.funcignore
+NeighborlyFrontEnd/.DS_Store
