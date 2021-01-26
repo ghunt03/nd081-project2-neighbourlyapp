@@ -1,7 +1,7 @@
 import logging.config
 import os
 from flask import Flask, Blueprint, request, jsonify, render_template, redirect, url_for
-from flask_bootstrap import Bootstrap
+#from flask_bootstrap import Bootstrap
 import settings
 import requests
 import json
@@ -11,7 +11,7 @@ from urllib.parse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
 app = Flask(__name__)
-Bootstrap(app)
+#Bootstrap(app)
 
 
 
